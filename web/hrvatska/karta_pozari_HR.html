@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Karta pozari HR</title>
+
+    <style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #map-canvas { height: 100% }
+    </style>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css'
+    	rel='stylesheet' type='text/css'/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+</head>
+<body>
+  <div id="map-canvas"></div>
+   
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min.js"></script>
+<script src="L.D3SvgOverlay.min.js"></script> 
+
+
+<script>
+
+var map = L.map("map-canvas", {center: [45.178,16.534], zoom: 8});
+var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+});
+
+var tiles2 = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	maxZoom: 17,
+	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+
+tiles.addTo(map);
+tiles2.addTo(map);
+
+
+var uporaba_12 = [];
+var uporaba_12Overlay = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(uporaba_12);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', function(d){return (d.properties.RGB)})
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) {return (d.properties.LABEL3)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var uporaba_18 = [];
+var uporaba_18Overlay = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(uporaba_18);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'blue')
+    .attr('fill', function(d){return (d.properties.RGB)})
+    .attr('fill-opacity', '0.6')
+	.append("title")
+	.text(function (d) {return (d.properties.LABEL3)});
+  update.attr('stroke-width', 1 / projection.scale);
+
+});
+
+var pozari = [];
+var pozariOverlay = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(pozari);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'red')
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) 
+	{return ("Područje: " + d.properties.place_name + "\nDatum požara: " + d.properties.firedate + "\nObuhvaćeno područje (ha) : " + d.properties.area_ha)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+		  
+var change = [];
+var changeOverlay = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(change);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', function(d){return (d.properties.RGB)})
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) {return ("Uporaba 2018.god.: " +d.properties.LABEL3+ "\nUporaba 2012.god.: " +d.properties.LABEL3_2+ "\nPodručje (ha): " +d.properties.Area_Ha)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+					  
+
+L.control.layers({"ArcGIS World Topo Map": tiles, "OSM Topo Map" : tiles2}, {"Požari":pozariOverlay, "Sloj promjene":changeOverlay, "Uporaba 2012":uporaba_12Overlay, "Uporaba 2018":uporaba_18Overlay }).addTo(map);
+
+
+d3.json("pozari_uporaba_2012_rgb.geojson", function(data) { uporaba_12 = data.features; uporaba_12Overlay.addTo(map) });
+d3.json("pozari_uporaba_2018_rgb.geojson", function(data) { uporaba_18 = data.features; uporaba_18Overlay.addTo(map) });
+d3.json("pozari_HR.geojson", function(data) { pozari = data.features; pozariOverlay.addTo(map) });
+d3.json("pozari_uporaba_change_rgb2.geojson", function(data) { change = data.features; changeOverlay.addTo(map) });
+
+
+</script>
+    
+</body>
+</html>

@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Karta poplave HR</title>
+
+    <style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #map-canvas { height: 100% }
+    </style>
+    <link href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.css'
+    	rel='stylesheet' type='text/css'/>
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+
+</head>
+<body>
+  <div id="map-canvas"></div>
+   
+<script src="https://d3js.org/d3.v3.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/0.7.7/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.4.9/d3.min.js"></script>
+<script src="L.D3SvgOverlay.min.js"></script> 
+
+
+<script>
+
+var map = L.map("map-canvas", {center: [45.178,16.534], zoom: 8});
+var tiles = L.tileLayer('http://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}', {
+	attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'
+});
+
+var tiles2 = L.tileLayer('https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png', {
+	maxZoom: 17,
+	attribution: 'Map data: &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, <a href="http://viewfinderpanoramas.org">SRTM</a> | Map style: &copy; <a href="https://opentopomap.org">OpenTopoMap</a> (<a href="https://creativecommons.org/licenses/by-sa/3.0/">CC-BY-SA</a>)'
+});
+
+tiles.addTo(map);
+tiles2.addTo(map);
+
+
+var countries1 = [];
+var countriesOverlay1 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries1);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'red')
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) {return (d.properties.src_date)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries2 = [];
+var countriesOverlay2 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries2);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'gray')
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) {return (d.properties.src_date)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries3 = [];
+var countriesOverlay3 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries3);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'green')
+    .attr('fill-opacity', '0.5');
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries4 = [];
+var countriesOverlay4 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries4);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'pink')
+    .attr('fill-opacity', '0.5');
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries5 = [];
+var countriesOverlay5 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries5);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'orange')
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) {return (d.properties.src_date)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries6 = [];
+var countriesOverlay6 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries6);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'purple')
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) {return (d.properties.src_date)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+
+var countries7 = [];
+var countriesOverlay7 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries7);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'yellow')
+    .attr('fill-opacity', '0.5');
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries8 = [];
+var countriesOverlay8 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries8);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'yellow')
+    .attr('fill-opacity', '0.5');
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries9 = [];
+var countriesOverlay9 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries9);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'yellow')
+    .attr('fill-opacity', '0.5');
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries10 = [];
+var countriesOverlay10 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries10);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'yellow')
+    .attr('fill-opacity', '0.5');
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries11 = [];
+var countriesOverlay11 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries11);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'yellow')
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) {return (d.properties.src_date)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries12 = [];
+var countriesOverlay12 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries12);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'yellow')
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) {return (d.properties.src_date)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries13 = [];
+var countriesOverlay13 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries13);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'yellow')
+    .attr('fill-opacity', '0.5');
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var countries14 = [];
+var countriesOverlay14 = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(countries14);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', 'brown')
+    .attr('fill-opacity', '0.5');
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+
+var uporaba_12 = [];
+var uporaba_12Overlay = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(uporaba_12);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', function(d){return (d.properties.RGB)})
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) {return (d.properties.LABEL3)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+
+var uporaba_18 = [];
+var uporaba_18Overlay = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(uporaba_18);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'blue')
+    .attr('fill', function(d){return (d.properties.RGB)})
+    .attr('fill-opacity', '0.6')
+	.append("title")
+	.text(function (d) {return (d.properties.LABEL3)});
+  update.attr('stroke-width', 1 / projection.scale);
+
+});
+
+var change = [];
+var changeOverlay = L.d3SvgOverlay(function(selection, projection) {
+	
+  var update = selection.selectAll('path').data(change);
+  update.enter()
+    .append('path')
+    .attr('d', projection.pathFromGeojson)
+    .attr('stroke', 'black')
+    .attr('fill', function(d){return (d.properties.RGB)})
+    .attr('fill-opacity', '0.5')
+	.append("title")
+	.text(function (d) {return ("Uporaba 2018.god.: " +d.properties.LABEL3+ "\nUporaba 2012.god.: " +d.properties.LABEL3_2+ "\nPodručje (ha): " +d.properties.Area_Ha)});
+  update.attr('stroke-width', 1 / projection.scale);
+});
+					  
+ 
+					  
+L.control.layers({"ArcGIS World Topo Map": tiles, "OSM Topo Map" : tiles2}, {"Sloj promjene":changeOverlay, "Uporaba 2012":uporaba_12Overlay, "Uporaba 2018":uporaba_18Overlay, "Bobovac": countriesOverlay1, "Legrad": countriesOverlay2, "Metkovic": countriesOverlay3, "Rugvica": countriesOverlay4, "Sisak": countriesOverlay5, "Županja": countriesOverlay6, "Novska": countriesOverlay7, "Sisak (2)": countriesOverlay8, "Karlovac": countriesOverlay9, "Sisak(3)": countriesOverlay10, "Karlovac(2)": countriesOverlay11, "Sisak(4)": countriesOverlay12, "Kutina": countriesOverlay13, "Lijevi Dubrovcak": countriesOverlay14 }).addTo(map);
+
+
+
+
+d3.json("sm_emsr142_bobovac_kriznapod.geojson", function(data) { countries1 = data.features; countriesOverlay1.addTo(map) });
+d3.json("sm_emsr101_legrad_kriznapod.geojson", function(data) { countries2 = data.features; countriesOverlay2.addTo(map) });
+d3.json("sm_emsr035_metkovic_kriznopod.geojson", function(data) { countries3 = data.features; countriesOverlay3.addTo(map) });
+d3.json("sm_emsr073_rugvica_kriznopod.geojson", function(data) { countries4 = data.features; countriesOverlay4.addTo(map) });
+d3.json("sm_emsr073_sisak_kriznopod.geojson", function(data) { countries5 = data.features; countriesOverlay5.addTo(map) });
+d3.json("sm_emsr088_zupanja_kriznopod.geojson", function(data) { countries6 = data.features; countriesOverlay6.addTo(map) });
+d3.json("sm_emsr275_novska_kriznapod.geojson", function(data) { countries7 = data.features; countriesOverlay7.addTo(map) });
+d3.json("sm_emsr035_sisak_kriznopod.geojson", function(data) { countries8 = data.features; countriesOverlay8.addTo(map) });
+d3.json("sm_emsr101_karlovac_kriznapod.geojson", function(data) { countries9 = data.features; countriesOverlay9.addTo(map) });
+d3.json("sm_emsr101_sisak_kriznapod.geojson", function(data) { countries10 = data.features; countriesOverlay10.addTo(map) });
+d3.json("sm_emsr142_karlovac_kriznapod.geojson", function(data) { countries11 = data.features; countriesOverlay11.addTo(map) });
+d3.json("sm_emsr142_sisak_kriznapod.geojson", function(data) { countries12 = data.features; countriesOverlay12.addTo(map) });
+d3.json("sm_emsr275_kutina_kriznapod.geojson", function(data) { countries13 = data.features; countriesOverlay13.addTo(map) });
+d3.json("sm_emsr275_lijevidub_kriznapod.geojson", function(data) { countries14 = data.features; countriesOverlay14.addTo(map) });
+d3.json("poplave_uporaba_2012_rgb.geojson", function(data) { uporaba_12 = data.features; uporaba_12Overlay.addTo(map) });
+d3.json("poplave_uporaba_2018_rgb.geojson", function(data) { uporaba_18 = data.features; uporaba_18Overlay.addTo(map) });
+d3.json("poplave_uporaba_change_rgb2.geojson", function(data) { change = data.features; changeOverlay.addTo(map) });
+
+</script>
+    
+</body>
+</html>
