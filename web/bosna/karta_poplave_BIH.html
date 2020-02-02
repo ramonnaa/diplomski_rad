@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Karta poplave BIH</title>
+    <title>Flood map of Bosnia and Hercegovina</title>
 
     <style type="text/css">
         html { height: 100% }
@@ -188,7 +188,7 @@ var changeOverlay = L.d3SvgOverlay(function(selection, projection) {
     .attr('fill', function(d){return (d.properties.RGB)})
     .attr('fill-opacity', '0.5')
 	.append("title")
-	.text(function (d) {return ("Uporaba 2018.god.: " +d.properties.LABEL3+ "\nUporaba 2012.god.: " +d.properties.LABEL3_2+ "\nPodručje (ha): " +d.properties.Area_Ha)});
+	.text(function (d) {return ("Land use 2018: " +d.properties.LABEL3+ "\nLand use 2012: " +d.properties.LABEL3_2+ "\nArea (ha): " +d.properties.Area_Ha)});
   update.attr('stroke-width', 1 / projection.scale);
 });
 
@@ -196,7 +196,7 @@ var changeOverlay = L.d3SvgOverlay(function(selection, projection) {
  
 					  
 
-L.control.layers({"ArcGIS World Topo Map": tiles, "OSM Topo Map" : tiles2}, {"Sloj promjene":changeOverlay, "Uporaba 2012":uporaba_12Overlay, "Uporaba 2018":uporaba_18Overlay, "Doboj": countriesOverlay1, "Zenica": countriesOverlay2, "Vlasenica": countriesOverlay3, "Bijeljina": countriesOverlay4, "Brčko": countriesOverlay5, "Balatun": countriesOverlay6}).addTo(map);
+L.control.layers({"ArcGIS World Topo Map": tiles, "OSM Topo Map" : tiles2}, {"Land use change":changeOverlay, "Land use 2012":uporaba_12Overlay, "Land use 2018":uporaba_18Overlay, "Doboj": countriesOverlay1, "Zenica": countriesOverlay2, "Vlasenica": countriesOverlay3, "Bijeljina": countriesOverlay4, "Brčko": countriesOverlay5, "Balatun": countriesOverlay6}).addTo(map);
 
 
 
